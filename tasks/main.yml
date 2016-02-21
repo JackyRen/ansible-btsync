@@ -32,7 +32,7 @@
 
 - name: copy config
   template: src=config.json dest=/home/{{ btsync_user }}/.sync/ owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  notify: restart btsync
+  notify: restart {{ btsync_service_name }}
 
 - name: create folders
   file: path={{ item.path }} recurse=yes state=directory owner={{ btsync_user }} group={{ btsync_user }} mode=700
