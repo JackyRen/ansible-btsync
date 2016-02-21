@@ -1,17 +1,7 @@
 ---
-- name: download
-  get_url: url="{{ btsync_url[ansible_architecture] }}"
-           dest=/tmp/btsync.tar.gz
-  register: download
-
-- name: extract
-  command: tar xvzf /tmp/btsync.tar.gz -C /tmp
-  when: download | changed
-
-- name: copy btsync to binary dir
-  copy: src=/tmp/btsync dest={{ btsync_binary_dir }}/btsync state=file mode=755 owner={{ btsync_user }}
-  notify: start btsync
-  when: download | changed
+- name: download and install binary
+  unarchive: url="{{ btsync_url[ansible_architecture] }}" 
+             dest={{ btsync_binary_dir }} mode=755 owner={{ btsync_user }}
 
 - name: install service
   template: src=btsync dest=/etc/init.d/{{ btsync_service_name }}  mode=755

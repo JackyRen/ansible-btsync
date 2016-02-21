@@ -2,7 +2,7 @@
 Description=btsync run by {{ btsync_user }}
 
 [Service]
-type=forking
+Type=forking
 User={{ btsync_user }}
 ExecStart={{ btsync_binary_dir }}/btsync --config "{{ btsync_config }}"
 
