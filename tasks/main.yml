@@ -5,6 +5,7 @@
 - name: download and install binary
   unarchive: src="{{ btsync_url[ansible_architecture] }}" 
              dest={{ btsync_binary_dir }} mode=755 owner={{ btsync_user }}
+             copy=no
 
 - name: install service
   template: src=btsync dest=/etc/init.d/{{ btsync_service_name }}  mode=755
