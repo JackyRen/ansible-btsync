@@ -8,21 +8,21 @@
   command: tar xvzf /tmp/btsync.tar.gz -C /tmp
   when: download | changed
 
-- name: copy btsync to /usr/local/bin
-  command: cp /tmp/btsync /usr/local/bin/
+- name: copy btsync to binary dir
+  copy: src=/tmp/btsync dest={{ btsync_binary_dir }}/btsync state=file mode=755 owner={{ btsync_user }}
   notify: start btsync
   when: download | changed
 
 - name: install service
-  template: src=btsync dest=/etc/init.d/btsync mode=755
+  template: src=btsync dest=/etc/init.d/{{ btsync_service_name }}  mode=755
   when: ansible_service_mgr != "systemd"
 
 - name: install systemd service
-  template: src=btsync-template.service.systemd.j2 dest=/etc/systemd/system/btsync-{{ btsync_user }}.service mode=755
+  template: src=btsync-template.service.systemd.j2 dest=/etc/systemd/system/{{ btsync_service_name }}.service mode=755
   when: ansible_service_mgr == "systemd"
 
 - name: activate service
-  service: name=btsync enabled=yes
+  service: name={{ btsync_service_name }} enabled=yes
 
 - name: check_btsync_user
   user: name={{ btsync_user }} comment="Created by ansible btsync." shell=/bin/false 
