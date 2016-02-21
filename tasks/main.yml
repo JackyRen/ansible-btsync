@@ -34,5 +34,6 @@
 
 - name: create folders
   file: path={{ item.path }} recurse=yes state=directory owner={{ btsync_user }} group={{ btsync_user }} mode=700
+  notify: restart {{ btsync_service_name }}
   with_items: btsync_shared_folders
   when: btsync_shared_folders is defined
