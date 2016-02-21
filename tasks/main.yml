@@ -20,7 +20,7 @@
   service: name=btsync enabled=yes
 
 - name: check_btsync_user
-  user: name = {{ btsync_user }} comment= "Created by ansible btsync." shell=/bin/false 
+  user: name={{ btsync_user }} comment="Created by ansible btsync." shell=/bin/false 
 
 - name: create .sync directory
   file: path=/home/{{ btsync_user }}/.sync owner={{ btsync_user }} group={{ btsync_user }} mode=0700 state=directory
