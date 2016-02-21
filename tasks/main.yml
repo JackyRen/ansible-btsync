@@ -1,6 +1,6 @@
 ---
 - name: download and install binary
-  unarchive: url="{{ btsync_url[ansible_architecture] }}" 
+  unarchive: src="{{ btsync_url[ansible_architecture] }}" 
              dest={{ btsync_binary_dir }} mode=755 owner={{ btsync_user }}
 
 - name: install service
