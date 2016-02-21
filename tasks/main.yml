@@ -14,10 +14,7 @@
 - name: install systemd service
   template: src=btsync-template.service.systemd.j2 dest=/etc/systemd/system/{{ btsync_service_name }}.service mode=755
   when: ansible_service_mgr == "systemd"
-
-- name: systemd reload
-  command: systemctl daemon-reload
-  when: ansible_service_mgr == "systemd"
+  notify: system reload
 
 - name: activate service
   service: name={{ btsync_service_name }} enabled=yes
@@ -30,10 +27,10 @@
 
 - name: copy config
   template: src=config.json.j2 dest=/home/{{ btsync_user }}/.sync/config.json owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  notify: restart {{ btsync_service_name }}
+  notify: restart btsync
 
 - name: create folders
   file: path={{ item.path }} recurse=yes state=directory owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  notify: restart {{ btsync_service_name }}
+  notify: restart btsync
   with_items: btsync_shared_folders
   when: btsync_shared_folders is defined
