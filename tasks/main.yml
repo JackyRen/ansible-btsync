@@ -1,4 +1,7 @@
 ---
+- name: create btsync binary directory
+  file: path={{ btsync_binary_dir }} group={{ btsync_user }} mode=0700 state=directory
+  
 - name: download and install binary
   unarchive: src="{{ btsync_url[ansible_architecture] }}" 
              dest={{ btsync_binary_dir }} mode=755 owner={{ btsync_user }}
