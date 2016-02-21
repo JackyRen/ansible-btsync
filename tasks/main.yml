@@ -29,7 +29,7 @@
   file: path=/home/{{ btsync_user }}/.sync owner={{ btsync_user }} group={{ btsync_user }} mode=0700 state=directory
 
 - name: copy config
-  template: src=config.json dest=/home/{{ btsync_user }}/.sync/ owner={{ btsync_user }} group={{ btsync_user }} mode=700
+  template: src=config.json.j2 dest=/home/{{ btsync_user }}/.sync/ owner={{ btsync_user }} group={{ btsync_user }} mode=700
   notify: restart {{ btsync_service_name }}
 
 - name: create folders
