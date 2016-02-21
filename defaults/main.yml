@@ -14,4 +14,4 @@ btsync_use_sync_trash: true
 btsync_binary_dir: /usr/local/{{ btsync_user }}/bin
 btsync_config: /home/{{ btsync_user }}/.sync/config.json
 btsync_service_name: btsync-{{ btsync_user }}
-btsync_device_name: {{ ansible_hostname }}
+btsync_device_name: "{{ ansible_hostname }}"
