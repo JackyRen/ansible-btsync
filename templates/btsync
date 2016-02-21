@@ -13,7 +13,7 @@
 
 # Replace with linux users you want to run BTSync clients for
 BTSYNC_USERS="{{ btsync_user }}"
-DAEMON=/usr/local/bin/btsync
+DAEMON={{ btsync_binary_dir }}/btsync
 
 start() {
   for btsuser in $BTSYNC_USERS; do

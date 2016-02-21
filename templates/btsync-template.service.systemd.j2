@@ -1,0 +1,10 @@
+[Unit]
+Description=btsync run by {{ btsync_user }}
+
+[Service]
+type=forking
+User={{ btsync_user }}
+ExecStart={{ btsync_binary_dir }}/btsync --config "{{ btsync_config }}"
+
+[Install]
+WantedBy=multi-user.target
