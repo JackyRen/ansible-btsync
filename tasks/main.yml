@@ -1,4 +1,7 @@
 ---
+- name: check_btsync_user
+  user: name={{ btsync_user }} comment="Created by ansible btsync." shell=/bin/false 
+
 - name: create btsync binary directory
   file: path={{ btsync_binary_dir }} group={{ btsync_user }} owner={{ btsync_user }} mode=0700 state=directory recurse=yes
   
@@ -18,9 +21,6 @@
 
 - name: activate service
   service: name={{ btsync_service_name }} enabled=yes
-
-- name: check_btsync_user
-  user: name={{ btsync_user }} comment="Created by ansible btsync." shell=/bin/false 
 
 - name: create .sync directory
   file: path=/home/{{ btsync_user }}/.sync owner={{ btsync_user }} group={{ btsync_user }} mode=0700 state=directory
